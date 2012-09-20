@@ -1,4 +1,4 @@
-
+package Indexer;
 
 public abstract class Chunk {
 	private StringBuffer buffer;
