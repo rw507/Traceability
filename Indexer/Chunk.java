@@ -1,6 +1,13 @@
 package Indexer;
-
+//Ryan comment
 public abstract class Chunk {
+	public class CommentChunk {
+
+		public CommentChunk() {
+			// TODO Auto-generated constructor stub
+		}
+
+	}
 	private StringBuffer buffer;
 	private StringBuffer content;
 	
