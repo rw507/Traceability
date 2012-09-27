@@ -20,8 +20,9 @@ public class CodeChunk extends Chunk {
 		return false;
 	}
 
+
 	@Override
-	public void parseBuffer() {
+	public void parse(TokenTracker t) {
 		// TODO Auto-generated method stub
 		
 	}
