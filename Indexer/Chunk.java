@@ -1,6 +1,4 @@
 package Indexer;
-//Ryan comment
-//Chris Comment
 public abstract class Chunk {
 	public class CommentChunk {
 
