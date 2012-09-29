@@ -4,7 +4,6 @@ package Indexer;
 /*
  * This TokenTracker class holds the final keywords and the count of each
  * for the comments and the code
- * 
  */
 import java.util.HashMap;
 import java.util.Set;
