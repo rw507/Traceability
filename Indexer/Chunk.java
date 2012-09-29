@@ -9,7 +9,7 @@ public abstract class Chunk {
 	}
 	private StringBuffer buffer;
 	private StringBuffer content;
-	
+
 	public Chunk(){
 		buffer = new StringBuffer();
 		content = new StringBuffer();
@@ -17,19 +17,17 @@ public abstract class Chunk {
 	protected Chunk(StringBuffer b){
 		buffer = b;
 		content = new StringBuffer();
-		parseBuffer();
 	}
-		public void addChar(char a){
+	public void addChar(char a){
 		buffer.append(a);
-		parseBuffer();
 	}
-			public StringBuffer getBuffer(){
+	public StringBuffer getBuffer(){
 		return buffer;
 	}
-			
-			
+
+
 	public abstract boolean isComplete();
-	public abstract void parseBuffer();
-	
-	
+	public abstract void parse(TokenTracker t);
+
+
 }
