@@ -50,14 +50,14 @@ public class TokenTracker {
 	/*
 	 * returns a Set of keys(tokens) in the code hash map
 	 */
-	public Set getCodeKeys(){
+	public Set<String> getCodeKeys(){
 		return code.keySet();
 	}
 	
 	/*
 	 * returns a Set of keys(tokens) in the comment hash map
 	 */
-	public Set getCommentKeys(){
+	public Set<String> getCommentKeys(){
 		return comment.keySet();
 	}
 	
