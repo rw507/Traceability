@@ -23,23 +23,40 @@ public class Indexer{
 		System.out.println("Finished");
 	}
 
-	private static void index(File f){
+	private static void index(File f) throws FileNotFoundException{
 		String fileName = f.getPath();
+
 		if(f.isDirectory()){
-			System.out.println(fileName + " is a directory********************");
+//			System.out.println(fileName + " is a directory********************");
 
 			for(File eachFile:f.listFiles()){
-				System.out.println("**********" + eachFile.getPath()+ "**********");
+//				System.out.println("**********" + eachFile.getPath()+ "**********");
 				index(eachFile);
 				
 			}
 		}
 		else{
 			if(f.isFile() && fileName.contains(".java")){
-				System.out.println(fileName + " is a supported file*************");
+//				System.out.println(fileName + " is a supported file*************");
+				Scanner fileScanner = new Scanner(f);
+				Chunk currentChunk = new CommentChunk();
+				Chunk temp;
+				Queue<Chunk> chunkQueue = new LinkedList<Chunk>();
+
+				while(fileScanner.hasNext()){
+					currentChunk.addLine(new StringBuffer(fileScanner.nextLine()));
+					if (currentChunk.isComplete()){
+						temp = currentChunk.nextChunk();
+						chunkQueue.add(currentChunk);
+						currentChunk = temp;
+						
+					}
+				}
+				
+				
 			}
 			else{
-				System.out.println(fileName + " is not supported");
+//				System.out.println(fileName + " is not supported");
 			}
 		}
 	}
