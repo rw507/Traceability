@@ -1,4 +1,6 @@
 package Indexer;
+//Ryan comment
+//Chris Comment
 public abstract class Chunk {
 	public class CommentChunk {
 
@@ -18,8 +20,8 @@ public abstract class Chunk {
 		buffer = b;
 		content = new StringBuffer();
 	}
-	public void addChar(char a){
-		buffer.append(a);
+	public void addLine(StringBuffer line){
+		buffer.append(line);
 	}
 	public StringBuffer getBuffer(){
 		return buffer;
@@ -28,6 +30,6 @@ public abstract class Chunk {
 
 	public abstract boolean isComplete();
 	public abstract void parse(TokenTracker t);
-
+	public abstract Chunk nextChunk();
 
 }

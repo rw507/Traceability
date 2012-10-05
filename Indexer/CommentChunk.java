@@ -1,12 +1,14 @@
 package Indexer;
 
-public class CodeChunk extends Chunk {
-	
+public class CommentChunk extends Chunk {
 
-	@Override
-	public StringBuffer getBuffer() {
-		// TODO Auto-generated method stub
-		return null;
+	public CommentChunk() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public CommentChunk(StringBuffer b) {
+		super(b);
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -22,7 +24,6 @@ public class CodeChunk extends Chunk {
 		
 	}
 
-	@Override
 	public Chunk nextChunk() {
 		// TODO Auto-generated method stub
 		return null;
