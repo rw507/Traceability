@@ -8,12 +8,11 @@ import java.util.Scanner;
 public class Indexer{
 	public static void main(String[] args){
 		System.out.println("Starting");
-		System.out.println(args[0]);
-		File argFile;
+
+		//Loops through each argument in passed through arguments and runs index on them
 		for(String eachArg: args){
 			try{
-				argFile = new File(eachArg);
-				index(argFile);
+				index(new File(eachArg));
 			}
 			catch(Exception e){
 				System.out.println(e.toString());
@@ -25,7 +24,8 @@ public class Indexer{
 
 	private static void index(File f) throws FileNotFoundException{
 		String fileName = f.getPath();
-
+		
+		// If the passed file is a directory, recursively call index on each file
 		if(f.isDirectory()){
 //			System.out.println(fileName + " is a directory********************");
 
@@ -37,9 +37,11 @@ public class Indexer{
 		}
 		else{
 			if(f.isFile() && fileName.contains(".java")){
-//				System.out.println(fileName + " is a supported file*************");
+				//Scanner to get lines from the passed in java source file
 				Scanner fileScanner = new Scanner(f);
+				//start currentChunk that is worked with as a CommentChunk because it is more often the first type of chunk in a file. 
 				Chunk currentChunk = new CommentChunk();
+				//Pace hold chunk for switching chunks
 				Chunk temp;
 				Queue<Chunk> chunkQueue = new LinkedList<Chunk>();
 
