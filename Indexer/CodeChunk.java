@@ -1,7 +1,12 @@
 package Indexer;
 
 public class CodeChunk extends Chunk {
-	
+	public CodeChunk(){
+		super();
+	}
+	public CodeChunk(StringBuffer startBuffer){
+		super(startBuffer);
+	}
 
 	@Override
 	public StringBuffer getBuffer() {

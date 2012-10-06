@@ -16,8 +16,9 @@ public abstract class Chunk {
 		buffer = new StringBuffer();
 		content = new StringBuffer();
 	}
-	protected Chunk(StringBuffer b){
-		buffer = b;
+	protected Chunk(StringBuffer startBuffer){
+		
+		buffer = startBuffer;
 		content = new StringBuffer();
 	}
 	public void addLine(StringBuffer line){
