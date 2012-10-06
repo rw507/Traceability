@@ -9,8 +9,8 @@ public abstract class Chunk {
 		}
 
 	}
-	private StringBuffer buffer;
-	private StringBuffer content;
+	protected StringBuffer buffer;
+	protected StringBuffer content;
 
 	public Chunk(){
 		buffer = new StringBuffer();
