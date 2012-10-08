@@ -95,17 +95,22 @@ public class CommentChunk extends Chunk {
 				for(;j<buffer.length()-1;x=y, y = buffer.charAt(j))
 				{
 
-					if(multiLineComment){
-						//if still mid-comment, add y to content and check to see if
-						// end of multi-line comment
-						content.append(y);
-						if(x=='*' && y=='/')
-							multiLineComment = false;
+					if(x == '*' && y=='/'){
+						buffer = buffer.delete(0, j+1);
+						return true;
 					}
-					else{
-						//no in multi-line comment, so add remainder of line to newbuffer         
-						newBuffer.append(y); 
-					}
+					
+//					if(multiLineComment){
+//						//if still mid-comment, add y to content and check to see if
+//						// end of multi-line comment
+//						content.append(y);
+//						if(x=='*' && y=='/')
+//							multiLineComment = false;
+//					}
+//					else{
+//						//no in multi-line comment, so add remainder of line to newbuffer         
+//						newBuffer.append(y); 
+//					}
 
 				}
 				//sets buffer to newBuffer for passing to code chunk later
