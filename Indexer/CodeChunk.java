@@ -24,6 +24,7 @@ public class CodeChunk extends Chunk {
 			
 			if(x == '/' && (y == '/' || y=='*')){
 			
+				// This deletes all unimportant data from the front of the stringbuffer 
 				buffer = buffer.delete(0,i-2);
 				return true;
 				

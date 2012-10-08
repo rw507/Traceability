@@ -12,26 +12,8 @@ public class Indexer{
 
 		//Loops through each argument in passed through arguments and runs index on them
 		for(String eachArg: args){
-			try{
-			
-				String[] arr = new String[8];
-				arr[0] = "/*ghi";
-				arr[1] = " jki"; 
-				arr[2] = " mno */ pqr";
-			    
-			    
-			    Chunk currentChunk = new CommentChunk();
-			    Chunk temp;
-
-			    for(int i =0;i<2;i++){
-                    currentChunk.addLine(new StringBuffer(arr[i]));
-                    
-                    System.out.println(arr[i] + ": " + currentChunk.isComplete());
-                  
-                    
-                }
-			    		
-				//index(new File(eachArg));
+		    try{
+			   index(new File(eachArg));
 			}
 			catch(Exception e){
 				System.out.println(e.toString());
