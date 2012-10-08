@@ -7,12 +7,31 @@ import java.util.Scanner;
 
 public class Indexer{
 	public static void main(String[] args){
+				
 		System.out.println("Starting");
 
 		//Loops through each argument in passed through arguments and runs index on them
 		for(String eachArg: args){
 			try{
-				index(new File(eachArg));
+			
+				String[] arr = new String[8];
+				arr[0] = "/*ghi";
+				arr[1] = " jki"; 
+				arr[2] = " mno */ pqr";
+			    
+			    
+			    Chunk currentChunk = new CommentChunk();
+			    Chunk temp;
+
+			    for(int i =0;i<2;i++){
+                    currentChunk.addLine(new StringBuffer(arr[i]));
+                    
+                    System.out.println(arr[i] + ": " + currentChunk.isComplete());
+                  
+                    
+                }
+			    		
+				//index(new File(eachArg));
 			}
 			catch(Exception e){
 				System.out.println(e.toString());
@@ -20,6 +39,8 @@ public class Indexer{
 
 		}
 		System.out.println("Finished");
+		
+		
 	}
 
 	private static void index(File f) throws FileNotFoundException{
@@ -56,6 +77,9 @@ public class Indexer{
 				}
 				
 				
+				
+				
+				
 			}
 			else{
 //				System.out.println(fileName + " is not supported");
@@ -63,56 +87,3 @@ public class Indexer{
 		}
 	}
 }
-
-
-
-//
-//public class Indexer {
-//	public static void main(String [] args){
-//
-//		//Loop through each argument, run recursive function index(File)
-//		for (String s: args){
-//			try{
-//				index(new File(s));
-//			}
-//			catch(Exception e){
-//
-//			}
-//		}
-//	}
-//
-//
-//	//Recurses each file in directory
-//	//indexes file
-//	private static void index(File f){
-//		if(f.isDirectory()){
-//			for(File s:f.listFiles()){
-//				index(s);
-//			}
-//		}
-//		if(f.isFile()){
-//			try{
-//				Scanner fileScanner = new Scanner(f);
-//				Chunk currentChunk = new CommentChunk();
-//				Chunk tempChunk;
-//				Queue<Chunk> chunkQueue = new LinkedList<Chunk>();
-//				
-//				//Take each line and give to current chunk
-//				
-//				while(fileScanner.hasNext()){
-//					currentChunk.addLine(new StringBuffer(fileScanner.nextLine()));
-//					//If current chunk is complete, get the new chunk and put current chunk in queue
-//					if(currentChunk.isComplete()){
-//						tempChunk = currentChunk.nextChunk();
-//						chunkQueue.add(currentChunk);
-//						currentChunk = tempChunk;
-//					}
-//				}
-//			}
-//			catch(Exception e){
-//
-//			}
-//
-//		}
-//	}
-//}	

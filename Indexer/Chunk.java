@@ -32,5 +32,6 @@ public abstract class Chunk {
 	public abstract boolean isComplete();
 	public abstract void parse(TokenTracker t);
 	public abstract Chunk nextChunk();
+	public abstract void test();
 
 }

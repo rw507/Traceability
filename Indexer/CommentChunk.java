@@ -1,10 +1,11 @@
 package Indexer;
 import java.lang.StringBuffer;
+//import java.io.*;
 
 public class CommentChunk extends Chunk {
 
 	//variables
-	private boolean multiLineComment;
+	private boolean multiLineComment =false;
 	//	private int j = 1;
 
 
@@ -18,7 +19,10 @@ public class CommentChunk extends Chunk {
 	public CommentChunk(StringBuffer b) {
 		super(b);
 	}
-
+	@Override
+	public void test(){
+		System.out.println("TEST");
+	}
 	@Override
 	public boolean isComplete() 
 	{
