@@ -67,8 +67,9 @@ public class Indexer{
 				}
 				CQT.setComplete();
 				while(CQT.isAlive());
-				Database db = new Database();
-				db.storeTokens(tt);
+				
+				Database db = Database.getInstance();
+				db.storeTokens(tt,fileName);
 				
 				
 				
