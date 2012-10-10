@@ -22,28 +22,29 @@ public class Database {
 	private final String addTokenQuery = "INSERT INTO token (column2) VALUES ('%s') "; // Data
 	private final String addLinkQuery = "INSERT INTO link (TokenID,DocID, Quantity, SourceType) VALUES ((SELECT ID FROM token WHERE Data='%s'),(SELECT ID FROM document WHERE Path='%s') ,'%s', '%s')";
 	private final String addDocQuery = "INSERT INTO document(path) VALUES ('%s')";
-	
+
 	//singleton code
-		private static Database db = null;
-		//getInstance() is how you access the Database
-		public static Database getInstance(){
-			if(db==null){
-				db = new Database();
-				return db;
-			}
-			else
-			{
-				return db;
-			}
-			
+	private static Database db = null;
+	
+	//getInstance() is how you access the Database
+	public static Database getInstance(){
+		if(db==null){
+			db = new Database();
+			return db;
 		}
-		
-		// constructor
-		protected Database(){
-			openConnect();
+		else
+		{
+			return db;
 		}
 
-	
+	}
+
+	// constructor
+	protected Database(){
+		openConnect();
+	}
+
+
 	public void buildQuery(){
 
 	} 
@@ -62,42 +63,40 @@ public class Database {
 		Iterator<String> commentIterator = commentTokens.iterator(); 
 
 		StringBuffer queryBuffer = new StringBuffer();
-		
+
 		String eachTokenInsertQuery;
 		String eachToken;
 		String eachTokenCount;
 		String eachLinkInsertQuery;
-		
+
 		while(codeIterator.hasNext()){
 			eachToken = codeIterator.next();
 			eachTokenCount = Integer.toString(tt.getCodeTokCount(eachToken));
-			
+
 			eachTokenInsertQuery = String.format(addTokenQuery, eachToken);
 			queryBuffer.append(eachTokenInsertQuery);
-			
+
 			eachLinkInsertQuery = String.format(addLinkQuery, eachToken,docName,eachTokenCount,"CODE");
 			queryBuffer.append(eachLinkInsertQuery);
-			
+
 			tokenStored.put(eachToken,true);
-			
+
 		}
 
 		while(commentIterator.hasNext()){
 			eachToken = codeIterator.next();
 			eachTokenCount = Integer.toString(tt.getCommentTokCount(eachToken));
-			
+
 			if(!tokenStored.get(eachToken)){
 				eachTokenInsertQuery = String.format(addTokenQuery, commentIterator.next());
 				queryBuffer.append(eachTokenInsertQuery);
 			}
-			
+
 			eachLinkInsertQuery = String.format(addLinkQuery, eachToken,docName,eachTokenCount,"COMMENT");
 			queryBuffer.append(eachLinkInsertQuery);
 		}
 	}
-	public void storeToken(String token, int quantity, String SourceType){
-
-	}
+	
 
 
 	//-------------------------------------------------------------
@@ -119,12 +118,16 @@ public class Database {
 
 	}
 
+	
 	public void closeConnect(){
-		try{
-			conn.close();
-		}
-		catch(Exception e){
+		if(db!=null){
+			try{
+				conn.close();
+				db = null;
+			}
+			catch(Exception e){
 
+			}
 		}
 	}
 }
