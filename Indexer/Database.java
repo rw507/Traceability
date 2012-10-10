@@ -18,9 +18,9 @@ public class Database {
 
 	private Connection conn = null;
 
-	private final String addTokenQuery = "INSERT INTO Token (column2) VALUES (%s) "; // Data
-	private final String addLinkQuery = "INSERT INTO Link ";
-
+	private final String addTokenQuery = "INSERT INTO token (column2) VALUES ('%s') "; // Data
+	private final String addLinkQuery = "INSERT INTO link (TokenID,DocID) VALUES ((SELECT ID FROM token WHERE Data='%s'),(SELECT ID FROM document WHERE Path='%s') )";
+	private final String addDocQuery = "INSERT INTO document(path) VALUES ('%s')";
 	public void buildQuery(){
 
 	} 
