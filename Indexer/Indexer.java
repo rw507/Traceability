@@ -70,6 +70,9 @@ public class Indexer{
 				Database db = new Database();
 				db.storeTokens(tt,fileName);
 				
+				Database db = Database.getInstance();
+				db.storeTokens(tt,fileName);
+				
 				
 				
 			}
