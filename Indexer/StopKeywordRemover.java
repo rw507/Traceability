@@ -2,6 +2,7 @@ package Indexer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.net.URL;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
@@ -24,9 +25,23 @@ public class StopKeywordRemover {
 	private File inF = null;
 	private Scanner fScan = null;
 	
+	//Singleton holder
+	private static StopKeywordRemover stkr = null;
+
+	//Singleton
+	public static StopKeywordRemover getInstance(){
+		if(stkr==null){
+			stkr = new StopKeywordRemover();
+			return stkr;
+		}
+		else
+		{
+			return stkr;
+		}
+	}
 	
     //Default constructor builds the 'words to be removed' hash table
-	public StopKeywordRemover(){
+	protected StopKeywordRemover(){
 	
        try{
 		buildHash();
@@ -36,13 +51,15 @@ public class StopKeywordRemover {
 	
 	
 	private void buildHash() throws FileNotFoundException{
-		
-			inF = new File("englishStopWords.txt");
+			URL urlStop = getClass().getResource("enlishStopwords.txt");
+			URL urlKey  = getClass().getResource("javaKeywords.txt");
+			
+			inF = new File(urlKey.getPath());
 		    fScan = new Scanner(inF);
 		    addtoHash();
 			
 			
-			inF = new File("javaKeywords.txt");
+			inF = new File(urlStop.getPath());
 			fScan = new Scanner(inF);
 			addtoHash();
 			
