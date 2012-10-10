@@ -1,4 +1,5 @@
 package Indexer;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -21,6 +22,27 @@ public class Database {
 	private final String addTokenQuery = "INSERT INTO token (column2) VALUES ('%s') "; // Data
 	private final String addLinkQuery = "INSERT INTO link (TokenID,DocID, Quantity, SourceType) VALUES ((SELECT ID FROM token WHERE Data='%s'),(SELECT ID FROM document WHERE Path='%s') ,'%s', '%s')";
 	private final String addDocQuery = "INSERT INTO document(path) VALUES ('%s')";
+	
+	//singleton code
+		private static Database db = null;
+		//getInstance() is how you access the Database
+		public static Database getInstance(){
+			if(db==null){
+				db = new Database();
+				return db;
+			}
+			else
+			{
+				return db;
+			}
+			
+		}
+		
+		// constructor
+		protected Database(){
+			openConnect();
+		}
+
 	
 	public void buildQuery(){
 
