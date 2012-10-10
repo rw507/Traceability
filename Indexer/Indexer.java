@@ -1,5 +1,6 @@
 package Indexer;
 import java.io.*;
+import java.net.URLDecoder;
 //import java.util.AbstractQueue;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -13,10 +14,12 @@ public class Indexer{
 		//Loops through each argument in passed through arguments and runs index on them
 		for(String eachArg: args){
 		    try{
-			   index(new File(eachArg));
+//		    	URLDecoder.decode(path);
+//		    	index(new File(URLDecoder.decode(eachArg)));
+			   index(new File(eachArg));;
 			}
 			catch(Exception e){
-				System.out.println(e.toString());
+				System.out.println(e.toString() + eachArg);
 			}
 
 		}
@@ -27,10 +30,12 @@ public class Indexer{
 
 	private static void index(File f) throws FileNotFoundException{
 		String fileName = f.getPath();
+//		System.out.println(fileName + " asdf");
+		if(!f.exists()) System.out.println(fileName + " does not exist");
 		
 		// If the passed file is a directory, recursively call index on each file
 		if(f.isDirectory()){
-//			System.out.println(fileName + " is a directory********************");
+//			System.out.println(fileName + " is a directory*********/***********");
 
 			for(File eachFile:f.listFiles()){
 //				System.out.println("**********" + eachFile.getPath()+ "**********");
@@ -46,19 +51,24 @@ public class Indexer{
 				Chunk currentChunk = new CommentChunk();
 				//Pace hold chunk for switching chunks
 				Chunk temp;
-				Queue<Chunk> chunkQueue = new LinkedList<Chunk>();
-
+//				Queue<Chunk> chunkQueue = new LinkedList<Chunk>();
+				TokenTracker tt = new TokenTracker();
+				ChunkQueueThread CQT = new ChunkQueueThread(tt);
+				CQT.run();
+			
 				while(fileScanner.hasNext()){
 					currentChunk.addLine(new StringBuffer(fileScanner.nextLine()));
 					if (currentChunk.isComplete()){
 						temp = currentChunk.nextChunk();
-						chunkQueue.add(currentChunk);
+						CQT.append(currentChunk);
 						currentChunk = temp;
 						
 					}
 				}
-				
-				
+				CQT.setComplete();
+				while(CQT.isAlive());
+				Database db = new Database();
+				db.storeTokens(tt);
 				
 				
 				
