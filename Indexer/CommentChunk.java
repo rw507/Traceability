@@ -135,8 +135,17 @@ public class CommentChunk extends Chunk {
 	}
 	@Override
 	public void parse(TokenTracker t) {
-		// TODO Auto-generated method stub
-
+		//remove numbers and punctuation
+		for(int i=0; i<buffer.length(); ++i)
+		{
+			if(!Character.isLetter(buffer.charAt(i)));
+				buffer.setCharAt(i, ' ');								
+		}
+		// TODO split words ie helloWorld -> hello World
+		// TODO set everything to lower case
+		// TODO split into individual strings
+		// TODO remove stop words
+		// TODO stem
 	}
 
 	//Used when a CommentChunk is complete. If there is a leftover buffer, it will contain code, therefore
