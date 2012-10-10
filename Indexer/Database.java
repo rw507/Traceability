@@ -109,11 +109,9 @@ public class Database {
 			// Do something with the Connection
 
 		} 
-		catch (SQLException | InstantiationException | IllegalAccessException | ClassNotFoundException ex) {
+		catch (Exception e) {
 			// handle any errors
-			System.out.println("SQLException: " + ex.getMessage());
-			System.out.println("SQLState: " + ((SQLException) ex).getSQLState());
-			System.out.println("VendorError: " + ((SQLException) ex).getErrorCode());   
+			
 		}
 
 	}

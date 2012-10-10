@@ -1,5 +1,8 @@
 package Indexer;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class CodeChunk extends Chunk {
 	public CodeChunk(){
 		super();
@@ -36,16 +39,18 @@ public class CodeChunk extends Chunk {
 
 	@Override
 	public void parse(TokenTracker t) {
-		// TODO Auto-generated method stub
+		List<String> wordList = new LinkedList<String>();
+		wordList = Parser.cleanseChunk(buffer);
 		
 	}
 
 	@Override
+	//provides the next chunk once this one has been closed
 	public Chunk nextChunk() {
-		// TODO Auto-generated method stub
-		return null;
+		return new CommentChunk(buffer);
 	}
-	@Override
+	
+	// this was used to ensure the threaded queue was working
 	public void test() {
 		// TODO Auto-generated method stub
 		

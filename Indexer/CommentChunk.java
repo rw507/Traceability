@@ -139,32 +139,35 @@ public class CommentChunk extends Chunk {
 	public void parse(TokenTracker t) {
 		//remove numbers and punctuation and splits the string buffer into a linked list of strings
 		List<String> wordList = new LinkedList<String>();
-		int beginWord = 0, endWord;
-        boolean buildingWord = false;
-        for(int i=0; i<buffer.length(); ++i)
-        {
-        	char tempChar = buffer.charAt(i);
-        	
-            if(!Character.isLetter(tempChar))
-            {
-            	if(buildingWord == true)
-            	{
-            		endWord = i-1;
-            		if(endWord - beginWord >= 1)
-            		{
-            			wordList.add(buffer.substring(beginWord, endWord));
-            			buildingWord = true;
-            		}
-            	}
-            	buffer.setCharAt(i, ' ');
-                
-            }
-            else if(buildingWord == false)
-            {
-            	beginWord = i;
-            }
- 
-        }
+		
+		wordList = Parser.cleanseChunk(buffer);
+		
+//		int beginWord = 0, endWord;
+//        boolean buildingWord = false;
+//        for(int i=0; i<buffer.length(); ++i)
+//        {
+//        	char tempChar = buffer.charAt(i);
+//        	
+//            if(!Character.isLetter(tempChar))
+//            {
+//            	if(buildingWord == true)
+//            	{
+//            		endWord = i-1;
+//            		if(endWord - beginWord >= 1)
+//            		{
+//            			wordList.add(buffer.substring(beginWord, endWord));
+//            			buildingWord = true;
+//            		}
+//            	}
+//            	buffer.setCharAt(i, ' ');
+//                
+//            }
+//            else if(buildingWord == false)
+//            {
+//            	beginWord = i;
+//            }
+// 
+//        }
 		// TODO split words ie helloWorld -> hello World
 		// TODO set everything to lower case
 		// TODO split into individual strings
