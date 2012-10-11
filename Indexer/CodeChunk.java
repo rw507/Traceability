@@ -23,16 +23,19 @@ public class CodeChunk extends Chunk {
 		
 		char x = buffer.charAt(0);
 		char y = buffer.charAt(1);
-		for(;i<buffer.length();i++,x=y,y=buffer.charAt(i)){
+		for(;i<buffer.length();i++,x=y){
 			
+			y=buffer.charAt(i);
 			if(x == '/' && (y == '/' || y=='*')){
 			
 				// This deletes all unimportant data from the front of the stringbuffer 
-				buffer = buffer.delete(0,i-2);
+				buffer = buffer.delete(0,i-1);
 				return true;
 				
 			}
+			content.append(x);
 		}
+		content.append(y);
 		return false;
 	}
 
