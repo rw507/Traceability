@@ -1,5 +1,6 @@
 package Indexer;
 
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URL;
@@ -44,9 +45,15 @@ public class StopKeywordRemover {
 	protected StopKeywordRemover(){
 	
        try{
+    	
 		buildHash();
+		
+		
        }
-       catch(FileNotFoundException fnfE){}
+       catch(FileNotFoundException fnfE){
+    	   
+    	   System.out.println(fnfE);
+       }
 	}
 	
 	
@@ -54,12 +61,13 @@ public class StopKeywordRemover {
 			URL urlStop = getClass().getResource("enlishStopwords.txt");
 			URL urlKey  = getClass().getResource("javaKeywords.txt");
 			
-			inF = new File(urlKey.getPath());
+			
+			inF = new File("C:\\Documents and Settings\\class\\workspace\\parser_test\\src\\test\\enlishStopwords.txt");
 		    fScan = new Scanner(inF);
 		    addtoHash();
 			
-			
-			inF = new File(urlStop.getPath());
+		  
+			inF = new File("C:\\Documents and Settings\\class\\workspace\\parser_test\\src\\test\\javaKeywords.txt");
 			fScan = new Scanner(inF);
 			addtoHash();
 			

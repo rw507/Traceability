@@ -25,7 +25,7 @@ implements
 import
 instanceof
 int
-Integer
+integer
 interface
 long
 native
@@ -41,7 +41,7 @@ return
 short
 super
 static
-String
+string
 switch
 strictfp
 synchronized
