@@ -7,7 +7,7 @@ import java.util.List;
 public class CommentChunk extends Chunk {
 
 	//variables
-	private boolean multiLineComment =false;
+	private boolean multiLineComment = false;
 	//	private int j = 1;
 
 
@@ -25,16 +25,16 @@ public class CommentChunk extends Chunk {
 	public void test(){
 		System.out.println("TEST");
 	}
+	
+	public StringBuffer printBuffer(){
+		return buffer;
+	}
+	
 	@Override
 	public boolean isComplete() 
 	{
 		{
 			int j = 1;
-//			char c;
-
-			//	 		StringBuffer newBuffer = new StringBuffer();
-			//			StringBuffer newBuffer;
-
 			//If not in the middle of multi-line comment, look for "//" in 
 			//buffer. 
 			if (!multiLineComment) 
@@ -44,44 +44,49 @@ public class CommentChunk extends Chunk {
 				char b = buffer.charAt(1);
 				// boolean isComment = true;
 
-				content.append(b);
-				for (int i =0;i<buffer.length()-1;i++,a=b,b=buffer.charAt(i))
+				//				content.append(b);
+				for (int i =1; i<buffer.length()-1 && !multiLineComment;i++,a=b,b=buffer.charAt(i))
 				{
-					// if(!isComment){
-					//     newBuffer.append(b);
 
-					//  }
-					//  else{
-					if(a == ' ') 
+					System.out.print("   |" + a +b+ "|   ");
+					if(a == ' '){
+
 						continue;
+					}
 					if(a == '/')
 					{
 						if(b=='/') {
 							// '//' was not found in comment there for comment 
 							// chunk is complete and buffer will be added to 
 							// content later
+
 							j = i+2;
 							break;
 						}
-						if(b =='*')
+						if(b == '*')
 						{
 							// Beginning of line starts a mutli-line comment, 
 							// so set mc true and set j for next if statement 
 							// will run and check for end of multi-line comment
 							j= i+2;
 							multiLineComment = true;
+							//							System.out.print("  ***   ");
+							break;
+							//							break;
 						}
 						else{
 							// a comment start was not found, therefore this line
 							// is not a comment
+							//							System.out.print("   a   ");
 							return true;
 						}
-
 					}
-					else
+					else{
 						// a comment start was not found, therefore this line
 						// is not a comment
+						//						System.out.print("   b   ");
 						return true;
+					}
 				}
 			}
 
@@ -92,39 +97,35 @@ public class CommentChunk extends Chunk {
 				char x = buffer.charAt(j-1);
 				char y = buffer.charAt(j);
 
+				//				content.append(x);
 				StringBuffer newBuffer = new StringBuffer();
 				//look through each char in buffer
-				for(;j<buffer.length()-1;x=y, y = buffer.charAt(j))
+				for(;j<buffer.length();j++,x=y )
 				{
-
+					
+						
+					y = buffer.charAt(j);
+					
 					if(x == '*' && y=='/'){
 						buffer = buffer.delete(0, j+1);
+						//						System.out.print("   c   ");
 						return true;
 					}
+					content.append(x);
 					
-//					if(multiLineComment){
-//						//if still mid-comment, add y to content and check to see if
-//						// end of multi-line comment
-//						content.append(y);
-//						if(x=='*' && y=='/')
-//							multiLineComment = false;
-//					}
-//					else{
-//						//no in multi-line comment, so add remainder of line to newbuffer         
-//						newBuffer.append(y); 
-//					}
-
 				}
+				content.append(y);
 				//sets buffer to newBuffer for passing to code chunk later
 				// if its empty, then its ready for next line
 				buffer = newBuffer;
-				if(!multiLineComment)
-					return true;
+				if(multiLineComment)
+					return false;
 			}
 			else
 			{
 				for(int i = j-1;i<buffer.length();i++)
 				{
+
 					//line was a single line comment, so add the rest of line to
 					//content
 					content.append(buffer.charAt(i));
@@ -139,35 +140,35 @@ public class CommentChunk extends Chunk {
 	public void parse(TokenTracker t) {
 		//remove numbers and punctuation and splits the string buffer into a linked list of strings
 		List<String> wordList = new LinkedList<String>();
-		
+
 		wordList = Parser.cleanseChunk(buffer);
-		
-//		int beginWord = 0, endWord;
-//        boolean buildingWord = false;
-//        for(int i=0; i<buffer.length(); ++i)
-//        {
-//        	char tempChar = buffer.charAt(i);
-//        	
-//            if(!Character.isLetter(tempChar))
-//            {
-//            	if(buildingWord == true)
-//            	{
-//            		endWord = i-1;
-//            		if(endWord - beginWord >= 1)
-//            		{
-//            			wordList.add(buffer.substring(beginWord, endWord));
-//            			buildingWord = true;
-//            		}
-//            	}
-//            	buffer.setCharAt(i, ' ');
-//                
-//            }
-//            else if(buildingWord == false)
-//            {
-//            	beginWord = i;
-//            }
-// 
-//        }
+
+		//		int beginWord = 0, endWord;
+		//        boolean buildingWord = false;
+		//        for(int i=0; i<buffer.length(); ++i)
+		//        {
+		//        	char tempChar = buffer.charAt(i);
+		//        	
+		//            if(!Character.isLetter(tempChar))
+		//            {
+		//            	if(buildingWord == true)
+		//            	{
+		//            		endWord = i-1;
+		//            		if(endWord - beginWord >= 1)
+		//            		{
+		//            			wordList.add(buffer.substring(beginWord, endWord));
+		//            			buildingWord = true;
+		//            		}
+		//            	}
+		//            	buffer.setCharAt(i, ' ');
+		//                
+		//            }
+		//            else if(buildingWord == false)
+		//            {
+		//            	beginWord = i;
+		//            }
+		// 
+		//        }
 		// TODO split words ie helloWorld -> hello World
 		// TODO set everything to lower case
 		// TODO split into individual strings
