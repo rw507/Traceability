@@ -1,4 +1,4 @@
-package Indexer.Tests;
+package IndexerTests.copy;
 
 import java.util.HashMap;
 import java.util.Iterator;
