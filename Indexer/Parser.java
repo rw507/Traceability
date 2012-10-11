@@ -5,16 +5,18 @@ package Indexer;
 import java.util.LinkedList;
 import java.util.List;
 
+
+
 public class Parser {
-	private static Stemmer s = null;
+	//private static Stemmer s = null;
 
 	// removes camel case, punctuation, and splits words
 	// the words are checked against the keyword/stopword hash
 	// before being added to the wordList for futher testing.
 	public static List<String> cleanseChunk(StringBuffer buffer){
 		StopKeywordRemover stkwremover = StopKeywordRemover.getInstance();
-		s = new Stemmer();
-		
+//		s = new Stemmer();
+
 
 		List<String> wordList = new LinkedList<String>();
 
@@ -36,15 +38,19 @@ public class Parser {
 			{
 				buffer.setCharAt(i, ' ');
 			}
-			
+
 
 			//breaks Camel case words into two words 
 			//  and stores as a lower case word
 			if(Character.isUpperCase(tempChar) && Character.isLowerCase(lastChar)){
 				word = buffer.substring(beginWord, i);
 				if(!stkwremover.removeWord(word.trim().toLowerCase())){
-				  word = stem(word);
-				  wordList.add(word.toLowerCase());
+					//System.out.print("Word before stem 1: " + word);
+
+					word = stem(word.trim().toLowerCase());
+					//System.out.println(" Word after Stem: "+word);
+
+					wordList.add(word.trim().toLowerCase());
 				}
 				beginWord = i;
 			}
@@ -57,16 +63,21 @@ public class Parser {
 			if((lastChar == ' ' && Character.isLetter(tempChar))){
 				word = buffer.substring(beginWord, i);
 				if(!stkwremover.removeWord(word.trim().toLowerCase())){
-					  word = stem(word);
-					  wordList.add(word.toLowerCase());
+					//System.out.print("Word before stem 2: " + word);
+					word = stem(word.trim().toLowerCase());
+					wordList.add(word.trim().toLowerCase());
+					//System.out.println(" Word after Stem: "+word);
+
 				}
 				beginWord = i;
 			}
 			else if(i==buffer.length()-1){
 				word = buffer.substring(beginWord, i+1);
 				if(!stkwremover.removeWord(word.trim().toLowerCase())){
-					  word = stem(word);
-					  wordList.add(word.toLowerCase());
+					//System.out.print("Word before stem 3: " + word);
+					word = stem(word.trim().toLowerCase());
+					//System.out.println(" Word after Stem: "+word);
+					wordList.add(word.trim().toLowerCase());
 				}
 			}
 
@@ -77,27 +88,31 @@ public class Parser {
 
 		return wordList;
 	} 
-	
+
 	public static String stem(String word){
 		
-		char[] array = word.toCharArray();
-		
+		Stemmer s = new Stemmer();
+//		char[] array = word.toCharArray();
 	
-	
-		//s.add(array,array.length);
-		
-		for(char c:array)
-		{
+		for(char c:word.toCharArray()){
+
 			s.add(c);
 		}
+//		s.add(word.toCharArray(), word.length());
+//		System.out.print(s.getResultBuffer());
+	
 		s.stem();
+		for(int i = 0;i<s.getResultLength();i++){
+			System.out.print(s.getResultBuffer()[i]);
+		}
 
-		//array = s.getResultBuffer();
-//		for(int i = 0;i<s.getResultLength();i++){
-//			System.out.print(array[i]);
 //		}
-	    
-	    
+		//array = s.getResultBuffer();
+		//		for(int i = 0;i<s.getResultLength();i++){
+		//			System.out.print(array[i]);
+		//		}
+
+		System.out.print("||" + s.toString() + "||");
 		return s.toString();
 	}
 }
