@@ -1,21 +1,23 @@
 package Indexer;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.ResultSet;
+import java.sql.*;
+//import java.sql.Connection;
+//import java.sql.DriverManager;
+//import java.sql.SQLException;
+//import java.sql.Statement;
+//import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 
+
 public class Database {
-	private final String dbName = "Traceability";
+	private final String dbName = "/traceability";
 	private final String password = "vExKFHJpxy2XPUvt";
 	private final String userName = "trace";
-	private final String ip = "96.63.247.168:3306";
+	private final String ip = "rw507@96.63.246.81:3306";
 	private final String driver = "com.mysql.jdbc.Driver";
-	private final String url = "jdbc:mysql://" +ip ;
+//	private final String url = ip;
+	private final String url = "jdbc:mysql://" +ip + "/";
 
 	private Connection conn = null;
 
@@ -110,6 +112,8 @@ public class Database {
 
 		} 
 		catch (Exception e) {
+			System.out.println("Connection to database failed");
+			System.out.println(e.toString());
 			// handle any errors
 			
 		}
