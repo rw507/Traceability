@@ -112,7 +112,7 @@ public class Parser {
 		//			System.out.print(array[i]);
 		//		}
 
-		System.out.print("||" + s.toString() + "||");
+		//System.out.print("||" + s.toString() + "||");
 		return s.toString();
 	}
 }

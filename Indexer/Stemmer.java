@@ -393,7 +393,7 @@ class Stemmer
                          for (int c = 0; c < j; c++) s.add(w[c]);
 
                          /* or, to test add(char[] w, int j) */
-                         /* s.add(w, j); */
+                         //s.add(w, j);
 
                          s.stem();
                          {  String u;
@@ -402,7 +402,7 @@ class Stemmer
                             u = s.toString();
 
                             /* to test getResultBuffer(), getResultLength() : */
-                            /* u = new String(s.getResultBuffer(), 0, s.getResultLength()); */
+                            //u = new String(s.getResultBuffer(), 0, s.getResultLength());
 
                             System.out.print(u);
                          }
