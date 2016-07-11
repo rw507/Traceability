@@ -54,7 +54,7 @@ public class Indexer{
 //				Queue<Chunk> chunkQueue = new LinkedList<Chunk>();
 				TokenTracker tt = new TokenTracker();
 				ChunkQueueThread CQT = new ChunkQueueThread(tt);
-				CQT.run();
+				CQT.start();
 			
 				while(fileScanner.hasNext()){
 					currentChunk.addLine(new StringBuffer(fileScanner.nextLine()));
